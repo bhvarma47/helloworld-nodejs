@@ -2,9 +2,9 @@ pipeline {
   agent any
 
   environment {
-    DOCKER_REGISTRY="277130520464.dkr.ecr.us-east-1.amazonaws.com"
+    DOCKER_REGISTRY="058331092577.dkr.ecr.ap-south-1.amazonaws.com"
     K8S_NAMESPACE = 'backend'
-    K8S_DEPLOYMENT_NAME = 'myapp'
+    K8S_DEPLOYMENT_NAME = 'project'
   }
 
   stages {
@@ -12,15 +12,15 @@ pipeline {
       steps {
         sh '''
 	 whoami
-         aws configure set aws_access_key_id AKIAUBBSEE6IKDAENLOK
-         aws configure set aws_secret_access_key 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
-         aws configure set default.region us-east-1
+         aws configure set aws_access_key_id AKIAQ3FGN2ZQWYGWBDES
+         aws configure set aws_secret_access_key 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
+         aws configure set default.region ap-south-1
          #echo $AWS_ACCESS_KEY_ID
-         #DOCKER_LOGIN_PASS=$(aws ecr get-login-password  --region us-east-1)
-         #docker login -u AWS -p $DOCKER_LOGIN_PASS https://678828690512.dkr.ecr.us-east-1.amazonaws.com/helloworld
-         aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 277130520464.dkr.ecr.us-east-1.amazonaws.com
-	 docker build -t 277130520464.dkr.ecr.us-east-1.amazonaws.com/helloworld:SAMPLE-PROJECT-${BUILD_NUMBER} .
-         docker push 277130520464.dkr.ecr.us-east-1.amazonaws.com/helloworld:SAMPLE-PROJECT-${BUILD_NUMBER}
+         #DOCKER_LOGIN_PASS=$(aws ecr get-login-password  --region us-east-1
+         #docker login -u AWS -p $DOCKER_LOGIN_PASS https://058331092577.dkr.ecr.ap-south-1.amazonaws.com/project1
+         aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 058331092577.dkr.ecr.ap-south-1.amazonaws.com
+	 docker build -t 058331092577.dkr.ecr.ap-south-1.amazonaws.com/project1:SAMPLE-PROJECT-${BUILD_NUMBER} .
+         docker push 058331092577.dkr.ecr.ap-south-1.amazonaws.com/project1:SAMPLE-PROJECT-${BUILD_NUMBER}
 	  '''
       }
     }

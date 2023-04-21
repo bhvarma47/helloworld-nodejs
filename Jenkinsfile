@@ -18,9 +18,9 @@ pipeline {
          #echo $AWS_ACCESS_KEY_ID
          #DOCKER_LOGIN_PASS=$(aws ecr get-login-password  --region us-east-1
          #docker login -u AWS -p $DOCKER_LOGIN_PASS https://994940421254.dkr.ecr.ap-south-1.amazonaws.com/project1
-         aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 591133068176.dkr.ecr.ap-southeast-1.amazonaws.com
-	 docker build -t 591133068176.dkr.ecr.ap-southeast-1.amazonaws.com/project1:SAMPLE-PROJECT-${BUILD_NUMBER} .
-         docker push 591133068176.dkr.ecr.ap-southeast-1.amazonaws.com/project1:SAMPLE-PROJECT-${BUILD_NUMBER}
+         #aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 591133068176.dkr.ecr.ap-southeast-1.amazonaws.com
+	 #docker build -t 591133068176.dkr.ecr.ap-southeast-1.amazonaws.com/project1:SAMPLE-PROJECT-${BUILD_NUMBER} .
+         #docker push 591133068176.dkr.ecr.ap-southeast-1.amazonaws.com/project1:SAMPLE-PROJECT-${BUILD_NUMBER}
 	  '''
       }
     }
@@ -28,7 +28,7 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         sh '''
-            sed "s/buildNumber/${BUILD_NUMBER}/g" K8/deployment.yaml > deployment-new.yaml
+            sed "s/buildNumber/${BUILD_NUMBER/1}/g" K8/deployment.yaml > deployment-new.yaml
             kubectl apply -f deployment-new.yaml -n $K8S_NAMESPACE
             kubectl apply -f service.yaml -n $K8S_NAMESPACE
            '''
